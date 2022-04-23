@@ -1,0 +1,53 @@
+
+Link :  https://docs.google.com/document/d/1R2JHF4CtQcBs_ldwHT1ORG9h8OL0e9jLCl_GG2pZB34/edit
+
+Exp-4 Implementation and Analysis of DFS and BFS for an  application 
+Aim: 
+To implement DFS and BFS for an application. 
+DFS Algorithm: 
+1.Push the root node in the stack. 
+2.Peek the node of the stack. 
+3.If the node has unvisited child nodes, get the unvisited child node, mark it as  traversed and push it on stack. 
+4.If the node does not have any unvisited child nodes, pop the node from the  stack. 
+BFS Algorithm: 
+1.Push the root node in the queue. 
+2.Loop until the queue is empty. 
+3.Remove the node from the queue. 
+4.If the removed node has unvisited child nodes, mark them as visited and insert  the unvisited children in the queue. 
+DFS Program: 
+def dfs(graph, start, visited=None): 
+ if visited is None: 
+ visited = set() 
+ visited.add(start) 
+ print(start) 
+ for next in graph[start] - visited: 
+ dfs(graph, next, visited) 
+ return visited 
+graph = {'0': set(['1', '2']),
+ '1': set(['0', '3', '4']), 
+ '2': set(['0']), 
+ '3': set(['1']), 
+ '4': set(['2', '3'])} 
+dfs(graph, '0') 
+Output: 
+
+BFS Program: 
+import collections 
+def bfs(graph, root): 
+ visited, queue = set(), collections.deque([root]) 
+ visited.add(root) 
+ while queue: 
+ vertex = queue.popleft() 
+ print(str(vertex) + " ", end="") 
+ for neighbour in graph[vertex]: 
+ if neighbour not in visited: 
+ visited.add(neighbour) 
+ queue.append(neighbour)
+if __name__ == '__main__': 
+ graph = {0: [1, 2], 1: [2], 2: [3], 3: [1, 2]} 
+ print("Following is Breadth First Traversal: ") 
+ bfs(graph, 0) 
+Output: 
+
+Result: 
+Hence, DFS and BFS for an application is implemented.
