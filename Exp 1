@@ -1,0 +1,98 @@
+Artificial Intelligence 
+
+Exp no 1: Implementation of toy problems(Tic Tac Toe) 
+
+To implement the toy problems(Tic Tac Toe) using python. 
+
+ALGORITHM: 
+1. Create a dictionary ‘theBoard’ which contains the keys of the dictionary. 2. Create a list ‘board_keys’ which append the key values. 
+3. Define a function printBoard() which will print the updated board after every move in the game. 
+4. Define a function game() which has all the game play functionality. 
+5. Create a variable ‘move’ which keeps track of the player moves. 
+6. Check if the player ‘X’ or ‘O’ wins for every move after 5 moves. 
+7. Use if...else condition to check whether the player ‘X’ or ‘O’ wins. 
+8. If neither ‘X’ nor ‘O’ wins, declare the result as a tie. 
+9. Ask if the player wants to restart the game or not. 
+
+Source Code: 
+theBoard = {'7': ' ' , '8': ' ' , '9': ' ' , 
+'4': ' ' , '5': ' ' , '6': ' ' , 
+'1': ' ' , '2': ' ' , '3': ' ' } 
+board_keys = [] 
+for key in theBoard: 
+board_keys.append(key) 
+''' We will have to print the updated board after every move in the game and thus we will make a function in which we'll define the print Board function
+so that we can easily print the board every time by calling this function. ''' 
+def printBoard(board): 
+print(board['7'] + '|' + board['8'] + '|' + board['9']) 
+print('-+-+-') 
+print(board['4'] + '|' + board['5'] + '|' + board['6']) 
+print('-+-+-') 
+print(board['1'] + '|' + board['2'] + '|' + board['3']) 
+# Now we'll write the main function which has all the gameplay functionality. def game(): 
+turn = 'X' 
+count = 0 
+for i in range(10): 
+printBoard(theBoard) 
+print("It's your turn," + turn + ".Move to which place?") 
+move = input() 
+if theBoard[move] == ' ': 
+theBoard[move] = turn 
+count += 1 
+else: 
+print("That place is already filled.\nMove to which place?") 
+continue 
+# Now we will check if player X or O has won,for every move after 5 moves. if count >= 5: 
+if theBoard['7'] == theBoard['8'] == theBoard['9'] != ' ': # across the top printBoard(theBoard) 
+print("\nGame Over.\n") 
+print(" **** " +turn + " won. ****") 
+break 
+elif theBoard['4'] == theBoard['5'] == theBoard['6'] != ' ': # across the middle printBoard(theBoard) 
+print("\nGame Over.\n") 
+print(" **** " +turn + " won. ****") 
+break 
+elif theBoard['1'] == theBoard['2'] == theBoard['3'] != ' ': # across the bottom printBoard(theBoard) 
+print("\nGame Over.\n")
+print(" **** " +turn + " won. ****") 
+break 
+elif theBoard['1'] == theBoard['4'] == theBoard['7'] != ' ': # down the left side printBoard(theBoard) 
+print("\nGame Over.\n") 
+print(" **** " +turn + " won. ****") 
+break 
+elif theBoard['2'] == theBoard['5'] == theBoard['8'] != ' ': # down the middle printBoard(theBoard) 
+print("\nGame Over.\n") 
+print(" **** " +turn + " won. ****") 
+break 
+elif theBoard['3'] == theBoard['6'] == theBoard['9'] != ' ': # down the right side printBoard(theBoard) 
+print("\nGame Over.\n") 
+print(" **** " +turn + " won. ****") 
+break 
+elif theBoard['7'] == theBoard['5'] == theBoard['3'] != ' ': # diagonal printBoard(theBoard) 
+print("\nGame Over.\n") 
+print(" **** " +turn + " won. ****") 
+break 
+elif theBoard['1'] == theBoard['5'] == theBoard['9'] != ' ': # diagonal printBoard(theBoard) 
+print("\nGame Over.\n") 
+print(" **** " +turn + " won. ****") 
+break 
+# If neither X nor O wins and the board is full, we'll declare the result as 'tie'. if count == 9: 
+print("\nGame Over.\n") 
+print("It's a Tie!!") 
+# Now we have to change the player after every move. 
+if turn =='X': 
+turn = 'O' 
+else: 
+turn = 'X' 
+# Now we will ask if player wants to restart the game or not. 
+restart = input("Do want to play Again?(y/n)") 
+if restart == "y" or restart == "Y": 
+for key in board_keys: 
+theBoard[key] = ""
+game() 
+if __name__ == "__main__": 
+game() 
+Output:
+
+
+RESULT: 
+The Tic Tac Toe game has been successfully created using python.
