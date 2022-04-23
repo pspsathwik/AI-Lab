@@ -1,0 +1,140 @@
+
+Link : https://drive.google.com/drive/u/0/folders/1uWhXBw_3SI2_FNZfZ7OsaA-x-B8XpoRp
+
+AIM:
+To Create a Program to apply Deep Learning method for Automatic
+Handwriting Recognition in Python
+ALGORITHM:
+1. Start Program.
+2. Load the data.
+3. Train the program.
+4. Select random data from the csv.
+5. Predict which letter the selected data is.
+6. Check the accuracy.
+7. Print the result.
+8. End Program.
+PROGRAM:
+import numpy as np # linear algebra
+import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+# Input data files are available in the read-only "../input/" directory
+# For example, running this (by clicking run or pressing Shift+Enter) will list all
+files under the input directory
+import os
+for dirname, _, filenames in os.walk('/kaggle/input'):
+for filename in filenames:
+print(os.path.join(dirname, filename))
+import matplotlib.pyplot as plt
+import cv2
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense, Flatten, Conv2D, MaxPool2D, Dropout
+from tensorflow.keras.optimizers import SGD, Adam
+from keras.callbacks import ReduceLROnPlateau, EarlyStopping
+from tensorflow.keras.utils import to_categorical
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+
+Experiment – 15
+Date:08/04/2022
+
+Name :P.R.Samraysh
+Class :B.Tech CSE IOT ‘A’
+Reg No. : RA1911032020009
+
+Artificial Intelligence
+Laboratory
+
+from sklearn.utils import shuffle
+from google.colab import drive
+drive.mount('/drive')
+data = pd.read_csv('/drive/My Drive/A_Z Handwritten
+Data.csv').astype('float32')
+X = data.drop('0',axis = 1) # axis=1 for dropping column
+y = data['0']
+X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size = 0.2)
+X_train = np.reshape(X_train.values, (X_train.shape[0], 28,28))
+X_test = np.reshape(X_test.values, (X_test.shape[0], 28,28)) #0=> B&W,
+28x28 matrix
+print("Train data shape: ", X_test.shape)
+print("Test data shape: ", X_test.shape)
+word_dict =
+{0:'A',1:'B',2:'C',3:'D',4:'E',5:'F',6:'G',7:'H',8:'I',9:'J',10:'K',11:'L',12:'M',13:'N',14
+:'O',15:'P',16:'Q',17:'R',18:'S',19:'T',20:'U',21:'V',22:'W',23:'X', 24:'Y',25:'Z'}
+y_int = np.int0(y)
+count = np.zeros(26, dtype='int') #a vector of size 26 with all 0 values
+for i in y_int:
+count[i] +=1 #total count of each alphabet
+alphabets = []
+for i in word_dict.values():
+alphabets.append(i) #all alphabets
+fig, ax = plt.subplots(1,1, figsize=(10,10))
+ax.barh(alphabets, count)
+plt.xlabel("Number of elements ")
+plt.ylabel("Alphabets")
+plt.grid()
+plt.show()
+shuff = shuffle(X_train[:100])
+fig, ax = plt.subplots(3,3, figsize = (10,10))
+
+axes = ax.flatten()
+for i in range(9):
+_, shu = cv2.threshold(shuff[i], 30, 200, cv2.THRESH_BINARY)
+axes[i].imshow(np.reshape(shuff[i], (28,28)), cmap="Greys")
+plt.show()
+X_train =
+X_train.reshape(X_train.shape[0],X_train.shape[1],X_train.shape[2],1) #RGB
+=>Channel of 1
+print("New shape of train data: ", X_train.shape)
+X_test = X_test.reshape(X_test.shape[0], X_test.shape[1], X_test.shape[2],1)
+#RGB =>Channel of 1
+print("New shape of train data: ", X_test.shape)
+train_yOHE = to_categorical(Y_train, num_classes = 26, dtype='int')
+print("New shape of train labels: ", train_yOHE.shape)
+test_yOHE = to_categorical(Y_test, num_classes = 26, dtype='int')
+print("New shape of test labels: ", test_yOHE.shape)
+model = Sequential()
+#CNN
+# input -> conv -> maxpool -> conv -> maxpool ......->flattened vector->
+#. hidden layer -> hidden layer -> softmax layer
+model.add(Conv2D(filters=32, kernel_size=(3, 3), activation='relu',
+input_shape=(28,28,1)))
+model.add(MaxPool2D(pool_size=(2, 2), strides=2))
+model.add(Conv2D(filters=64, kernel_size=(3, 3), activation='relu', padding =
+'same'))
+model.add(MaxPool2D(pool_size=(2, 2), strides=2))
+model.add(Conv2D(filters=128, kernel_size=(3, 3), activation='relu', padding =
+'valid'))
+model.add(MaxPool2D(pool_size=(2, 2), strides=2))
+model.add(Flatten())
+model.add(Dense(64,activation ="relu"))
+model.add(Dense(128,activation ="relu"))
+
+model.add(Dense(26,activation ="softmax"))
+print("The validation accuracy is :", history.history['val_accuracy'])
+print("The training accuracy is :", history.history['accuracy'])
+print("The validation loss is :", history.history['val_loss'])
+print("The training loss is :", history.history['loss'])
+fig, axes = plt.subplots(3,3, figsize=(8,9))
+axes = axes.flatten()
+for i,ax in enumerate(axes):
+img = np.reshape(X_test[i], (28,28))
+ax.imshow(img, cmap="Greys")
+pred = word_dict[np.argmax(test_yOHE[i])]
+ax.set_title("Prediction: "+pred)
+ax.grid()
+fig, axes = plt.subplots(3,3, figsize=(8,9))
+axes = axes.flatten()
+for i,ax in enumerate(axes):
+img = np.reshape(X_test[i], (28,28)) # reshaping it for displaying
+ax.imshow(img, cmap="Greys")
+img_final =np.reshape(img, (1,28,28,1)) # reshapng it for passing into model
+for prediction
+pred = word_dict[np.argmax(model.predict(img_final))]
+ax.set_title("Prediction: "+pred)
+ax.grid()
+OUTPUT:
+
+RESULT:
+Thus, A Program to apply Deep Learning method for Automatic Handwriting
+Recognition using Python is created and executed successfully.
