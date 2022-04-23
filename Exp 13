@@ -1,0 +1,53 @@
+
+Link : https://drive.google.com/drive/u/0/folders/1soY2pQUZlZMojJ1YwcSCK8zXW97Bw6mi
+
+AIM:
+To Write a Python Program to use IRIS dataset for multi-class classification
+using AdaBoost algorithm.
+ALGORITHM:
+1. Creating First Base Learner
+2. Calculating the Total Error (TE)
+3. Calculating Performance of Stump
+4. Updating Weights
+5. Creating New Dataset
+PROGRAM:
+# Load libraries
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn import datasets
+# Import train_test_split function
+from sklearn.model_selection import train_test_split
+#Import scikit-learn metrics module for accuracy calculation
+from sklearn import metrics
+# Load data
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+# Split dataset into training set and test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3) # 70%
+training and 30%
+test
+# Create adaboost classifer object
+abc = AdaBoostClassifier(n_estimators=50,
+learning_rate=1)
+# Train Adaboost Classifer
+model = abc.fit(X_train, y_train)
+#Predict the response for test dataset
+y_pred = model.predict(X_test)
+# Model Accuracy, how often is the classifier correct?
+print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+
+Experiment – 13
+Date:04/04/2022
+
+Name :P.R.Samraysh
+Class :B.Tech CSE IOT ‘A’
+Reg No. : RA1911032020009
+
+Artificial Intelligence
+Laboratory
+
+OUTPUT:
+
+RESULT:
+Thus, Implementation of To build the classification model using the gradient
+boosting algorithm using Boston Housing Dataset carried out successfully.
