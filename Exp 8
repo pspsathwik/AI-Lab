@@ -1,0 +1,104 @@
+
+Link : https://docs.google.com/document/d/1IFBCQCZr3_FMLpNLDvQsw4t9KtnsgolxAywgKTjfh_8/edit
+
+Exp.8 Implementation of Knowledge Representation schemes Aim: 
+To implement knowledge representation schemes. 
+Algorithm: 
+1.Initialize a 9x9 array with numbers to represent the game of sudoku, where the numbers  that are to be filled are represented with 0. 
+2.Define a variable called size with the value 9, this represents the size of the array. 3.Create a function called is_safe that checks if a number can be placed in a  corresponding row and column. 
+4.Create another function called number_unassigned, to check if there are any unsigned  cells in row and column. 
+5.For every number from 1 to size, check if there are any unsigned cells and also check if  the number is_safe to be placed in that cell using backtracking. 
+6.After looping through the numbers if there are no unsigned cells then the puzzle is  solved. 
+7.Print the solution to the puzzle. 
+Program: 
+#include <stdio.h> 
+#define SIZE 9 
+int matrix[9][9] = { 
+ {5,3,0,0,7,0,0,0,0}, 
+ {6,0,0,1,9,5,0,0,0}, 
+ {0,9,8,0,0,0,0,6,0}, 
+ {8,0,0,0,6,0,0,0,3}, 
+ {4,0,0,8,0,3,0,0,1}, 
+ {7,0,0,0,2,0,0,0,6}, 
+ {0,6,0,0,0,0,2,8,0},
+ {0,0,0,4,1,9,0,0,5}, 
+ {0,0,0,0,8,0,0,7,9} 
+}; 
+void print_sudoku() 
+{ 
+ int i,j; 
+ for(i=0;i<SIZE;i++) 
+ { 
+ for(j=0;j<SIZE;j++) 
+ { 
+ printf("%d\t",matrix[i][j]);  } 
+ printf("\n\n"); 
+ } 
+} 
+int number_unassigned(int *row, int *col) { 
+ int num_unassign = 0; 
+ int i,j; 
+ for(i=0;i<SIZE;i++) 
+ { 
+ for(j=0;j<SIZE;j++) 
+ { 
+ if(matrix[i][j] == 0)  { 
+ *row = i; 
+ *col = j;
+ num_unassign = 1;  return num_unassign;  } 
+ } 
+ } 
+ return num_unassign; 
+} 
+int is_safe(int n, int r, int c) { 
+ int i,j; 
+ for(i=0;i<SIZE;i++) 
+ { 
+ if(matrix[r][i] == n) 
+ return 0; 
+ } 
+ for(i=0;i<SIZE;i++) 
+ { 
+ if(matrix[i][c] == n) 
+ return 0; 
+ } 
+ int row_start = (r/3)*3; 
+ int col_start = (c/3)*3; 
+ for(i=row_start;i<row_start+3;i++)  { 
+ for(j=col_start;j<col_start+3;j++)
+ { 
+ if(matrix[i][j]==n) 
+ return 0; 
+ } 
+ } 
+ return 1; 
+} 
+int solve_sudoku() 
+{ 
+ int row; 
+ int col; 
+ if(number_unassigned(&row, &col) == 0)  return 1; 
+ int n,i; 
+ for(i=1;i<=SIZE;i++) 
+ { 
+ if(is_safe(i, row, col))  { 
+ matrix[row][col] = i;  if(solve_sudoku()) 
+ return 1; 
+ matrix[row][col]=0; 
+ } 
+ } 
+ return 0; 
+}
+int main() 
+{ 
+ if (solve_sudoku()) 
+ print_sudoku(); 
+ else 
+ printf("No solution\n");  return 0; 
+}
+
+Output:
+
+
+Result: 
+Thus knowledge representation schemes have been implemented with sudoku.
